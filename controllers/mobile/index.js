@@ -6,6 +6,9 @@ const VisitorController = require("./visitorController");
 const TransactionController = require("./transactionController");
 const CategoryController = require("./categoryController");
 const FeatureController = require("./FeatureController");
+const ProductController = require("./ProductController");
+const ProductHistoryController = require("./ProductHistoryController");
+const UserFavoriteController = require("./UserFavoriteController");
 
 module.exports = {
   OutletController,
@@ -16,4 +19,7 @@ module.exports = {
   TransactionController,
   CategoryController,
   FeatureController,
+  ProductController,
+  ProductHistoryController,
+  UserFavoriteController,
 };

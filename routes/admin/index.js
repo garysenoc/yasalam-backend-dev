@@ -14,6 +14,9 @@ const VisitorRoute = require("./VisitorRoute");
 const RegisterTransactionRoute = require("./RegisterTransactionRoute");
 const BranchRoute = require("./BranchRoute");
 const ReferralRoute = require("./ReferralRoute");
+const ProductHistoryRoute = require("./ProductHistoryRoute");
+const ProductRoute = require("./ProductRoute");
+const UserFavorite = require("./UserFavoriteRoute");
 
 router.use("/admin", AdminRoute);
 router.use("/category", CategoryRoute);
@@ -28,5 +31,8 @@ router.use("/visitor", VisitorRoute);
 router.use("/register-transaction", RegisterTransactionRoute);
 router.use("/branch", BranchRoute);
 router.use("/referral", ReferralRoute);
+router.use("/product", ProductRoute);
+router.use("/productHistory", ProductHistoryRoute);
+router.use("/userFavorite", UserFavorite);
 
 module.exports = router;

@@ -12,6 +12,9 @@ const RegisterTransaction = require("./registerTransactionController");
 const BranchController = require("./branchController");
 const RegionController = require("./regionController");
 const ReferralController = require("./ReferralController");
+const ProductController = require("./ProductController");
+const ProductHistoryController = require("./ProductHistoryController");
+const UserFavoriteController = require("./UserFavoriteController");
 
 module.exports = {
   OutletController,
@@ -28,4 +31,7 @@ module.exports = {
   BranchController,
   RegionController,
   ReferralController,
+  ProductController,
+  ProductHistoryController,
+  UserFavoriteController,
 };

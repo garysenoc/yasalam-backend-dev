@@ -5,9 +5,7 @@ dotenv.config({ path: "./config.env" });
 const app = require("./app");
 
 mongoose
-  .connect(
-    "mongodb+srv://dbYasalam:Xp9iuzszFA56iSJG@cluster0.r2c1j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  )
+  .connect("mongodb://localhost:27017/yasalam")
   .then(() => console.log("DB connection established"));
 
 const port = process.env.PORT || 8000;
