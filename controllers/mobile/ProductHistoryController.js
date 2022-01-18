@@ -4,7 +4,10 @@ const bcrypt = require("bcryptjs");
 
 const getAllProductHistory = async (req, res) => {
   try {
-    const productHistory = await ProductHistory.find().populate("outlet");
+    const productHistory = await ProductHistory.find().populate([
+      "productId",
+      "userId",
+    ]);
 
     res.status(200).json({
       status: "success",
@@ -24,7 +27,9 @@ const getAllProductHistory = async (req, res) => {
 const getProductHistory = async (req, res) => {
   // done
   try {
-    const productHistory = await ProductHistory.findById(req.params.id);
+    const productHistory = await ProductHistory.findById(
+      req.params.id,
+    ).populate(["productId", "userId"]);
     res.status(200).json({
       status: "success",
       data: {

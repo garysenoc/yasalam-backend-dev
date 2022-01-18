@@ -14,6 +14,16 @@ const userFavoriteSchema = new mongoose.Schema({
     ref: "Outlet",
     required: true,
   },
+  branch: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Branch",
+    required: true,
+  },
+  favoriteType: {
+    type: String,
+    trim: true,
+    required: true,
+  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

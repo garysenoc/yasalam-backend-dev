@@ -12,8 +12,8 @@ const productSchema = new mongoose.Schema({
     trim: true,
   },
   description: {
-    type: Date,
-    default: Date.now(),
+    type: String,
+    default: "",
     trim: true,
   },
   points: {
