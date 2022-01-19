@@ -64,8 +64,9 @@ const createUserFavorite = async (req, res) => {
 };
 
 const deleteUserFavorite = async (req, res) => {
+
   try {
-    await UserFavorite.findByIdAndDelete(req.params.id);
+    await UserFavorite.findOneAndDelete({ outlet: req.body.outletId, userId: req.body.userId });
     res.status(204).json({
       status: "success",
       message: `Successfully deleted`,

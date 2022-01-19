@@ -9,7 +9,7 @@
 const mongoose = require("mongoose");
 
 const userFavoriteSchema = new mongoose.Schema({
-  outlet: {
+  favorite_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Outlet",
   },
@@ -20,6 +20,7 @@ const userFavoriteSchema = new mongoose.Schema({
   isBranch: {
     type: Boolean,
     required: true,
+    default: false
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,

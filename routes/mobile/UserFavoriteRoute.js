@@ -10,7 +10,7 @@ router.post(
   UserFavoriteController.createUserFavorite,
 );
 router.post(
-  "/delete-UserFavorite-history/:id",
+  "/delete-UserFavorite-history/",
   UserFavoriteController.deleteUserFavorite,
 );
 

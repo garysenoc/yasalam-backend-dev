@@ -49,14 +49,9 @@ const getUser = async (req, res) => {
   // done
   try {
     const { otp } = req.body;
-    const user = await User.findById(req.body.id);
+    let user = await User.findById(req.body.id);
 
     const userFavorite = await UserFavorite.find({ userId: req.body.id });
-    let userFavoriteArray = [];
-
-    for (let favorite in userFavorite) {
-      userFavoriteArray.push(favorite._id);
-    }
 
     if (user.userType === "Family") {
       if (user.otp !== otp) {
@@ -73,14 +68,12 @@ const getUser = async (req, res) => {
         message: "Please try again",
       });
     }
-
-    user.favorite = userFavoriteArray;
-
     //Tour.findOne({_id=req.params.id})
     res.status(200).json({
       status: "success",
       data: {
         user,
+        userFavorite
       },
     });
   } catch (err) {
