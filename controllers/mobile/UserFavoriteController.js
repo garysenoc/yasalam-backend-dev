@@ -44,14 +44,8 @@ const getUserFavorite = async (req, res) => {
 
 const createUserFavorite = async (req, res) => {
   try {
-    const { password } = req.body;
-
-    const salt = await bcrypt.genSalt();
-    const passwordHash = await bcrypt.hash(password, salt);
-
     const newUserFavorite = await UserFavorite.create({
       ...req.body,
-      password: passwordHash,
     });
 
     res.status(201).json({
