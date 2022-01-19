@@ -17,9 +17,8 @@ const userFavoriteSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Branch",
   },
-  favoriteType: {
-    type: String,
-    trim: true,
+  isBranch: {
+    type: Boolean,
     required: true,
   },
   userId: {
