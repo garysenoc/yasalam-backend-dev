@@ -1,6 +1,7 @@
 const User = require("../../models/User");
 const sgMail = require("@sendgrid/mail");
 const nodemailer = require("nodemailer");
+const UserFavorite = require("../../models/UserFavorite");
 
 function makeid(length) {
   var result = "";
@@ -50,6 +51,13 @@ const getUser = async (req, res) => {
     const { otp } = req.body;
     const user = await User.findById(req.body.id);
 
+    const userFavorite = await UserFavorite.find({ userId: req.body.id });
+    let userFavoriteArray = [];
+
+    for (let favorite in userFavorite) {
+      userFavoriteArray.push(favorite._id);
+    }
+
     if (user.userType === "Family") {
       if (user.otp !== otp) {
         if (user.childrenOTP.includes(otp) === false) {
@@ -65,6 +73,8 @@ const getUser = async (req, res) => {
         message: "Please try again",
       });
     }
+
+    user.favorite = userFavoriteArray;
 
     //Tour.findOne({_id=req.params.id})
     res.status(200).json({
