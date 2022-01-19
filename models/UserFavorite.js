@@ -12,12 +12,10 @@ const userFavoriteSchema = new mongoose.Schema({
   outlet: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Outlet",
-    required: true,
   },
   branch: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Branch",
-    required: true,
   },
   favoriteType: {
     type: String,
