@@ -24,7 +24,7 @@ const getAllUserFavorite = async (req, res) => {
 const getUserFavorite = async (req, res) => {
   // done
   try {
-    const UserFavorite = await UserFavorite.findById(req.params.id).populate(
+    const UserFavorite = await UserFavorite.find({userId: req.params.id}).populate(
       "outlet",
     );
 
