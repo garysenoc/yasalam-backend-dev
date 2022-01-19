@@ -108,7 +108,7 @@ const updateProductHistory = async (req, res) => {
 const getProductHistoryByUser = async (req, res) => {
   // done
   try {
-    const userId = req.body.user.id;
+    const userId = req.body.userId;
 
     const productHistory = await ProductHistory.find({
       userId: userId,
