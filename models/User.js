@@ -2,6 +2,20 @@ const mongoose = require("mongoose");
 
 const { DateTime } = require("luxon");
 
+// name
+// bday
+
+const childSchema = new Schema({
+  name: {
+    type: String,
+    trim: true,
+  },
+  birthDate: {
+    type: Date,
+    required: [true, "Child must have birthDate"],
+  },
+});
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -47,17 +61,11 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
   children: {
-    type: [String],
+    type: [childSchema],
     default: [],
+    max: 3,
   },
-  isChildrenActive: {
-    type: [Boolean],
-    default: [],
-  },
-  childrenOTP: {
-    type: [String],
-    default: [],
-  },
+
   points: {
     type: Number,
     default: 0.0,
