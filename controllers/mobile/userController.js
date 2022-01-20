@@ -49,9 +49,14 @@ const getUser = async (req, res) => {
   // done
   try {
     const { otp } = req.body;
-    let user = await User.findById(req.body.id);
+    const user = await User.findById(req.body.id);
 
     const userFavorite = await UserFavorite.find({ userId: req.body.id });
+    let userFavoriteArray = [];
+
+    for (let favorite in userFavorite) {
+      userFavoriteArray.push(favorite._id);
+    }
 
     if (user.userType === "Family") {
       if (user.otp !== otp) {
@@ -68,12 +73,11 @@ const getUser = async (req, res) => {
         message: "Please try again",
       });
     }
-    //Tour.findOne({_id=req.params.id})
+
     res.status(200).json({
       status: "success",
       data: {
-        user,
-        userFavorite
+        ...user,
       },
     });
   } catch (err) {
@@ -577,10 +581,10 @@ const checkOTPVerify = async (req, res) => {
 
 const addChildrenAccount = async (req, res) => {
   try {
-    const generateOTP = makeid(6);
-
     const main_id = req.body.id;
-    const childEmail = req.body.childEmail;
+    const childName = req.body.childName;
+    const childBday = req.body.childBday;
+    const childGender = req.body.gender;
 
     const main = await User.findById(main_id);
 
@@ -590,44 +594,44 @@ const addChildrenAccount = async (req, res) => {
       });
     }
 
-    let children_account = main.children;
-    let children_otp = main.childrenOTP;
-    let children_active = main.isChildrenActive;
+    main.children.push({
+      name: childName,
+      birthDate: childBday,
+      gender: childGender,
+    });
 
-    children_account.push(childEmail);
-    children_otp.push(generateOTP);
-    children_active.push(false);
+    main.save(function (err) {
+      if (!err) {
+        console.log("Success!");
+        return res.status(201).json({
+          status: "success",
+          data: {
+            main,
+          },
+        });
+      }
+    });
 
-    const c = await User.findByIdAndUpdate(
-      main_id,
-      {
-        children: children_account,
-        isChildrenActive: children_active,
-        childrenOTP: children_otp,
-      },
-      { new: true },
-    );
+    // const message = `Hi! Thank you for availing Yasalam Membership.  Enjoy exciting perks and benefits as you explore our services! To proceed with your account, please use this code ${generateOTP} as your OTP for logging in your account. Once again, thank you for patronizing Yasalam and we look forward to your very good feedback soon! Sincerely, Yasalam Team`;
+    // const htmlMessage = `Hi! <br /> <br />Thank you for availing Yasalam Membership.  Enjoy exciting perks and benefits as you explore our services! <br/> <br />To proceed with your account, please use this code ${generateOTP} as your OTP for logging in your account and use your parent's email.<br /> <br/>Once again, thank you for patronizing Yasalam and we look forward to your very good feedback soon!<br/><br/> Sincerely, Yasalam Team`;
 
-    const message = `Hi! Thank you for availing Yasalam Membership.  Enjoy exciting perks and benefits as you explore our services! To proceed with your account, please use this code ${generateOTP} as your OTP for logging in your account. Once again, thank you for patronizing Yasalam and we look forward to your very good feedback soon! Sincerely, Yasalam Team`;
-    const htmlMessage = `Hi! <br /> <br />Thank you for availing Yasalam Membership.  Enjoy exciting perks and benefits as you explore our services! <br/> <br />To proceed with your account, please use this code ${generateOTP} as your OTP for logging in your account and use your parent's email.<br /> <br/>Once again, thank you for patronizing Yasalam and we look forward to your very good feedback soon!<br/><br/> Sincerely, Yasalam Team`;
-
-    const sgMail = require("@sendgrid/mail");
-    sgMail.setApiKey(
-      "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",
-    );
-    const msg = {
-      to: childEmail,
-      from: "ya.salam129@gmail.com",
-      subject: "Welcome to Yasalam (Child Account) - One Time Password",
-      text: message,
-      html: htmlMessage,
-    };
-    sgMail.send(msg);
+    // const sgMail = require("@sendgrid/mail");
+    // sgMail.setApiKey(
+    //   "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",
+    // );
+    // const msg = {
+    //   to: childEmail,
+    //   from: "ya.salam129@gmail.com",
+    //   subject: "Welcome to Yasalam (Child Account) - One Time Password",
+    //   text: message,
+    //   html: htmlMessage,
+    // };
+    // sgMail.send(msg);
 
     res.status(201).json({
       status: "success",
       data: {
-        c,
+        main,
       },
     });
   } catch (err) {
