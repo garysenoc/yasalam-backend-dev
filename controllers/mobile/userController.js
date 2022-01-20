@@ -77,7 +77,8 @@ const getUser = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        ...user,
+        user,
+        userFavorite: userFavoriteArray
       },
     });
   } catch (err) {
@@ -599,7 +600,7 @@ const addChildrenAccount = async (req, res) => {
       birthDate: childBday,
       gender: childGender,
     });
-
+    console.log(main)
     await main.save(function (err) {
       if (!err) {
         console.log("Success!");
@@ -609,6 +610,8 @@ const addChildrenAccount = async (req, res) => {
             main,
           },
         });
+      }else {
+        console.log(err)
       }
     });
 
