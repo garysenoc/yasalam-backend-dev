@@ -600,7 +600,7 @@ const addChildrenAccount = async (req, res) => {
       gender: childGender,
     });
 
-    main.save(function (err) {
+    await main.save(function (err) {
       if (!err) {
         console.log("Success!");
         return res.status(201).json({

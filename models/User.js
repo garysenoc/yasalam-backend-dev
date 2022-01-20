@@ -1,24 +1,9 @@
 const mongoose = require("mongoose");
 
-import childSchema from "./Children";
+const { childSchema } = require("./Children");
 
 // name
 // bday
-
-const childSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    trim: true,
-  },
-  birthDate: {
-    type: Date,
-    required: [true, "Child must have birthDate"],
-  },
-  gender: {
-    type: String,
-    trim: true,
-  },
-});
 
 const userSchema = new mongoose.Schema({
   name: {
