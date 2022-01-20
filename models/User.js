@@ -5,7 +5,7 @@ const { DateTime } = require("luxon");
 // name
 // bday
 
-const childSchema = new Schema({
+const childSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
