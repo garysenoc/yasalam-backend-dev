@@ -49,7 +49,7 @@ const getUser = async (req, res) => {
   // done
   try {
     const { otp } = req.body;
-    const user = await User.findById(req.body.id);
+    const user = await User.findById(req.body.id).populate("children");
 
     const userFavorite = await UserFavorite.find({ userId: req.body.id });
     let userFavoriteArray = [];
@@ -600,20 +600,7 @@ const addChildrenAccount = async (req, res) => {
       birthDate: childBday,
       gender: childGender,
     });
-    console.log(main)
-    await main.save(function (err) {
-      if (!err) {
-        console.log("Success!");
-        return res.status(201).json({
-          status: "success",
-          data: {
-            main,
-          },
-        });
-      }else {
-        console.log(err)
-      }
-    });
+    await main.save();
 
     // const message = `Hi! Thank you for availing Yasalam Membership.  Enjoy exciting perks and benefits as you explore our services! To proceed with your account, please use this code ${generateOTP} as your OTP for logging in your account. Once again, thank you for patronizing Yasalam and we look forward to your very good feedback soon! Sincerely, Yasalam Team`;
     // const htmlMessage = `Hi! <br /> <br />Thank you for availing Yasalam Membership.  Enjoy exciting perks and benefits as you explore our services! <br/> <br />To proceed with your account, please use this code ${generateOTP} as your OTP for logging in your account and use your parent's email.<br /> <br/>Once again, thank you for patronizing Yasalam and we look forward to your very good feedback soon!<br/><br/> Sincerely, Yasalam Team`;
