@@ -14,6 +14,10 @@ const childSchema = new mongoose.Schema({
     type: Date,
     required: [true, "Child must have birthDate"],
   },
+  gender: {
+    type: String,
+    trim: true,
+  },
 });
 
 const userSchema = new mongoose.Schema({
