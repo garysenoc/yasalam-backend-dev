@@ -1,7 +1,5 @@
 const UserFavorite = require("../../models/UserFavorite");
 
-const bcrypt = require("bcryptjs");
-
 const getAllUserFavorite = async (req, res) => {
   try {
     const UserFavorite = await UserFavorite.find().populate("outlet");
@@ -24,17 +22,18 @@ const getAllUserFavorite = async (req, res) => {
 const getUserFavorite = async (req, res) => {
   // done
   try {
-    const UserFavorite = await UserFavorite.find({userId: req.params.id}).populate(
-      "outlet",
+    const outlet = await UserFavorite.find({userId: req.params.id}).populate(
+      "favorite_id",
     );
 
     res.status(200).json({
       status: "success",
       data: {
-        UserFavorite,
+        outlet,
       },
     });
   } catch (err) {
+    console.log(err)
     res.status(404).json({
       status: "fail",
       message: err,
