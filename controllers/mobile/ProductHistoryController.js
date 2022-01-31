@@ -112,23 +112,9 @@ const getProductHistoryByUser = async (req, res) => {
     const userId = req.body.userId;
 
     const user = await User.findById(userId);
-
     const productHistory = await ProductHistory.find({
       userId: userId,
     }).populate("productId");
-
-    const pointDeduct = productHistory.productId.points;
-
-    const updateUserPoints = user.points - pointDeduct;
-
-    await User.findByIdAndUpdate(
-      userId,
-      { points: updateUserPoints },
-      {
-        new: true,
-        runValidators: true,
-      },
-    );
 
     res.status(200).json({
       status: "success",
@@ -136,7 +122,7 @@ const getProductHistoryByUser = async (req, res) => {
         productHistory,
       },
     });
-  } catch (err) {
+  } catch (err) { 
     res.status(404).json({
       status: "fail",
       message: err,

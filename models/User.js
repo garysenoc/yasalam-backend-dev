@@ -104,10 +104,12 @@ const userSchema = new mongoose.Schema({
   frontimageID: {
     type: String,
     required: true,
+    select: false,
   },
   backimageID: {
     type: String,
     required: true,
+    select: false,
   },
 });
 
