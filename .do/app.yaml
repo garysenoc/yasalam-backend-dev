@@ -1,0 +1,8 @@
+name: yasalam-backend-dev
+services:
+  - environment_slug: node-js
+    github:
+      branch: main
+      deploy_on_push: true
+      repo: garysenoc/yasalam-backend-dev
+    name: yasalam-backend-dev
